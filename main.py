@@ -6,8 +6,8 @@ import logging
 from yobit_api import api
 
 
-main_cfg = """pair1:
-pair2:btc
+main_cfg = """currency1:
+currency2:btc
 api_key:
 secret_key:
 lt:1

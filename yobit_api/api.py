@@ -5,8 +5,8 @@ import hashlib
 import os
 
 
-base_cfg = """pair1:
-pair2:btc
+base_cfg = """currency1:
+currency2:btc
 api_key:
 secret_key:
 nonce:{}

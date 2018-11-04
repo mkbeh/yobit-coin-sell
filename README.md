@@ -6,11 +6,11 @@ Utility for yobit exchange which sell all coin amount by values from config file
 
 ###### getme.cfg contains 5 fields:
 ```angular2html
-pair1:          # main currency which need to sell
-pair2:btc       # currency for which we sell main
+currency1:          # main currency which need to sell
+currency2:btc       # currency for which we sell main currency
 api_key:
 secret_key:
-lt:1            # minimal value. if main currency > lt: script will sell main coins
+lt:1            # minimal value. if currency1 amount > lt: script will sell main coins
 ```
 
 * Set values into getme.cfg
