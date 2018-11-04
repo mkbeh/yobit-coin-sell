@@ -28,24 +28,49 @@ class CoinSell(object):
 
     @staticmethod
     def check_on_file(*args):
+        """
+        Method which check configs on current directory , if not exist - create them.
+        :param args: configs
+        :return:
+        """
         for num, arg in enumerate(args):
             if os.path.isfile(arg) is False:
                 with open(arg, 'w') as file:
                     file.write(cfgs_lst[num].format(1))
 
     def get_data_from_cfg(self):
+        """
+        Method which read main config by line and return data.
+        :return:
+        """
         with open(self.main_cfg, 'r') as file:
             data_lst = [line.split(':')[1].replace('\n', '') for line in file]
 
         return data_lst
 
     def get_balance(self, api_key, secret_key, main_currency):
+        """
+        Method which get account balance of main currency , which must be set in getme config file.
+        :param api_key:
+        :param secret_key:
+        :param main_currency:
+        :return:
+        """
         info = self.trade(key=api_key, secret_key=secret_key).get_info()
         time.sleep(3)
 
         return float(info['return']['funds'][main_currency])
 
     def drain_balance(self, bal, main_currency, alt_currency, key, secret_key):
+        """
+        Method which sell all amount of main currency on pair main_currency/alt_currency.
+        :param bal: current balance
+        :param main_currency: pair1 in getme.cfg file.
+        :param alt_currency: pair2 in getme.cfg file.
+        :param key:
+        :param secret_key:
+        :return:
+        """
         pair = f'{main_currency}_{alt_currency}'
         starting_balance = balance = bal
         trade = self.trade(key=key, secret_key=secret_key)
@@ -81,6 +106,12 @@ class CoinSell(object):
         logging.info(f'{starting_balance} {main_currency} was successfully sold.')
 
     def run(self):
+        """
+        Method which:
+        1. Check configs on exist.
+        2. Drain balance of main currency (pair1 in config file).
+        :return:
+        """
         self.check_on_file(self.main_cfg, self.nonce_cfg)                                   # Check on configs exists
         main_currency, alt_currency, api_key, secret_key, lt = self.get_data_from_cfg()     # Get data from config.
 
