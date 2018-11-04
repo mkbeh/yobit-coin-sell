@@ -2,9 +2,7 @@ from yobit_api.utils import Request
 from urllib.parse import urlencode
 import hmac
 import hashlib
-import datetime
 import os
-from random import randint, seed
 
 
 base_cfg = """pair1:
