@@ -27,7 +27,7 @@ class CoinSell(object):
         self.trade = api.TradeApi
 
     @staticmethod
-    def check_on_file(*args):
+    def is_file(*args):
         """
         Method which check configs on current directory , if not exist - create them.
         :param args: configs
@@ -78,13 +78,7 @@ class CoinSell(object):
         while balance > 1:
             time.sleep(3)
             last_bid_order = self.public().get_pair_depth(pair, 1)['bids']
-            subtrahend = None
-
-            if balance < last_bid_order[0][1]:
-                subtrahend = balance
-
-            elif balance > last_bid_order[0][1]:
-                subtrahend = last_bid_order[0][1]
+            subtrahend = balance if balance < last_bid_order[0][1] else last_bid_order[0][1]
 
             try:
                 order_id = trade.sell(f'{main_currency}_{alt_currency}', last_bid_order[0][0],
@@ -112,7 +106,7 @@ class CoinSell(object):
         2. Drain balance of main currency (pair1 in config file).
         :return:
         """
-        self.check_on_file(self.main_cfg, self.nonce_cfg)                                   # Check on configs exists
+        self.is_file(self.main_cfg, self.nonce_cfg)                                         # Check on configs exists
         main_currency, alt_currency, api_key, secret_key, lt = self.get_data_from_cfg()     # Get data from config.
 
         try:

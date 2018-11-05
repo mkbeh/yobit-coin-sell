@@ -156,7 +156,7 @@ class TradeApi(YobitApi):
         self.USE_CLOUDFLARE_SCRAPE = use_cloudflare_scrape
 
     @staticmethod
-    def check_on_file(file):
+    def is_file(file):
         if os.path.isfile(file) is False:
             with open(file, 'w') as file:
                 file.write('1')
@@ -164,7 +164,7 @@ class TradeApi(YobitApi):
         return file
 
     def _get_headers(self, data: dict):
-        file = self.check_on_file(os.path.join(os.getcwd(), 'nonce.cfg'))
+        file = self.is_file(os.path.join(os.getcwd(), 'nonce.cfg'))
 
         with open(file, 'r') as f:
             nonce = int(f.read())
