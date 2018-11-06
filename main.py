@@ -27,7 +27,7 @@ class CoinSell(object):
         self.trade = api.TradeApi
 
     @staticmethod
-    def is_file(*args):
+    def files_exists(*args):
         """
         Method which check configs on current directory , if not exist - create them.
         :param args: configs
@@ -106,7 +106,7 @@ class CoinSell(object):
         2. Drain balance of main currency (pair1 in config file).
         :return:
         """
-        self.is_file(self.main_cfg, self.nonce_cfg)                                         # Check on configs exists
+        self.files_exists(self.main_cfg, self.nonce_cfg)                                         # Check on configs exists
         main_currency, alt_currency, api_key, secret_key, lt = self.get_data_from_cfg()     # Get data from config.
 
         try:
